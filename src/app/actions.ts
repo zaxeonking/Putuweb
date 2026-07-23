@@ -227,10 +227,10 @@ export async function hapusNilaiAction(id: string): Promise<HasilAction<null>> {
 /** Ambil satu koleksi apapun (dipakai untuk refresh manual dari client / Zustand store). */
 export async function ambilKoleksiAction<K extends NamaKoleksi>(
   koleksi: K
-): Promise<HasilAction<Awaited<ReturnType<typeof getData<K>>>>> {
+): Promise<HasilAction<DatabaseKelas[K]>> {
   try {
     const data = await getData(koleksi);
-    return { sukses: true, data };
+    return { sukses: true, data: data as DatabaseKelas[K] };
   } catch (error) {
     return bungkusError(error);
   }
