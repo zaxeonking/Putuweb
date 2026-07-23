@@ -90,9 +90,9 @@ export async function tambahTugasAction(
       return { sukses: false, pesan: 'Judul, mata pelajaran, dan deadline wajib diisi.' };
     }
     const data = await saveData('tugas', {
-      prioritas: 'Sedang',
-      status: 'Belum Dikerjakan',
       ...input,
+      prioritas: input.prioritas ?? 'Sedang',
+      status: input.status ?? 'Belum Dikerjakan',
     });
     revalidatePath('/');
     return { sukses: true, data };
