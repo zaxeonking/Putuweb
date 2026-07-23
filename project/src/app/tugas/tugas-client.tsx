@@ -115,14 +115,17 @@ export function TugasClient({ initialDatabase }: Props) {
     });
   }, [tugas, pencarian, filterMapel, filterPrioritas, filterStatus, tampilan]);
 
-  function urutkanDeadline(a: Tugas, b: Tugas) {
-    const beda = new Date(a.deadline).getTime() - new Date(b.deadline).getTime();
-    return urutan === 'terdekat' ? beda : -beda;
-  }
+  const urutkanDeadline = React.useCallback(
+    (a: Tugas, b: Tugas) => {
+      const beda = new Date(a.deadline).getTime() - new Date(b.deadline).getTime();
+      return urutan === 'terdekat' ? beda : -beda;
+    },
+    [urutan]
+  );
 
   const tugasTabel = React.useMemo(
     () => [...tugasTersaring].sort(urutkanDeadline),
-    [tugasTersaring, urutan]
+    [tugasTersaring, urutkanDeadline]
   );
 
   const tugasPerStatus = React.useMemo(() => {
@@ -134,7 +137,7 @@ export function TugasClient({ initialDatabase }: Props) {
       );
     }
     return peta;
-  }, [tugasTersaring, urutan]);
+  }, [tugasTersaring, urutkanDeadline]);
 
   // ===== Handler CRUD & aksi =====
 
