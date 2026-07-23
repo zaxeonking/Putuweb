@@ -112,7 +112,7 @@ export async function saveData<K extends NamaKoleksi>(
       ? { diperbaruiPada: sekarang }
       : {}),
     ...item,
-  } as DatabaseKelas[K][number];
+  } as unknown as DatabaseKelas[K][number];
 
   await tulisDenganRetry(
     `feat(${koleksi}): tambah data baru`,
@@ -147,7 +147,7 @@ export async function updateData<K extends NamaKoleksi>(
       ...patch,
       ...(koleksi === 'catatan' ? { diperbaruiPada: new Date().toISOString() } : {}),
     };
-    hasil = itemBaru as DatabaseKelas[K][number];
+    hasil = itemBaru as unknown as DatabaseKelas[K][number];
 
     const daftarBaru = [...daftar];
     daftarBaru[indeks] = itemBaru;
