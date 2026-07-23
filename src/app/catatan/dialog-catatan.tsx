@@ -95,7 +95,7 @@ export function DialogCatatan({ daftarMapel, catatan, mapelDefault, trigger }: P
           <Button>
             <NotebookPen className="h-4 w-4" /> Tambah Catatan
           </Button>
-        )}
+        ))}
       </DialogTrigger>
 
       <DialogContent className="max-w-2xl">

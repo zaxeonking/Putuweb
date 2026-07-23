@@ -97,7 +97,7 @@ export function DialogNilai({ daftarMapel, nilai, mapelDefault, trigger }: Props
           <Button>
             <PlusCircle className="h-4 w-4" /> Tambah Nilai
           </Button>
-        )}
+        ))}
       </DialogTrigger>
 
       <DialogContent>
