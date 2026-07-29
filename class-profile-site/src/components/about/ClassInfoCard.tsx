@@ -1,14 +1,17 @@
-import { School, CalendarDays, UserRound, Users, Mars, Venus, MapPin } from "lucide-react";
+import { School, CalendarDays, UserRound, Users, MapPin } from "lucide-react";
 import { Card } from "@/components/ui/Card";
+import { GenderGlyph } from "@/components/ui/GenderGlyph";
 import { ClassInfoItem } from "@/types";
 
-const ICONS: Record<ClassInfoItem["icon"], typeof School> = {
+type IconComponent = React.ComponentType<{ size?: number; className?: string }>;
+
+const ICONS: Record<ClassInfoItem["icon"], IconComponent> = {
   school: School,
   "calendar-days": CalendarDays,
   "user-round": UserRound,
   users: Users,
-  mars: Mars,
-  venus: Venus,
+  mars: (props) => <GenderGlyph gender="mars" {...props} />,
+  venus: (props) => <GenderGlyph gender="venus" {...props} />,
   "map-pin": MapPin,
 };
 

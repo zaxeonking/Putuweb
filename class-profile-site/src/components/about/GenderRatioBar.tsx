@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mars, Venus } from "lucide-react";
+import { GenderGlyph } from "@/components/ui/GenderGlyph";
 import { CLASS_INFO } from "@/lib/constants";
 
 export function GenderRatioBar() {
@@ -19,10 +19,10 @@ export function GenderRatioBar() {
     >
       <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-widest text-muted dark:text-muted-dark">
         <span className="flex items-center gap-1.5 text-ink dark:text-ink-dark">
-          <Mars size={13} className="text-sky-500" /> {maleStudents} Male · {malePct}%
+          <GenderGlyph gender="mars" size={13} className="text-sky-500" /> {maleStudents} Male · {malePct}%
         </span>
         <span className="flex items-center gap-1.5 text-ink dark:text-ink-dark">
-          {femalePct}% · {femaleStudents} Female <Venus size={13} className="text-rose-500" />
+          {femalePct}% · {femaleStudents} Female <GenderGlyph gender="venus" size={13} className="text-rose-500" />
         </span>
       </div>
 

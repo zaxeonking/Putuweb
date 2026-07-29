@@ -127,6 +127,10 @@ npm run lint     # ESLint (next/core-web-vitals)
 
 ## Notes
 
+- Dependencies in `package.json` are pinned to exact versions (no `^`/`~`)
+  since this repo doesn't ship a `package-lock.json`. Run `npm install`
+  once and commit the generated lockfile so every install — local and on
+  Vercel — resolves identical versions.
 - Dark/light mode uses the `class` strategy and respects the system
   preference by default; toggle lives in the navbar.
 - All animations respect `prefers-reduced-motion`.
