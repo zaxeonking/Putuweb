@@ -3,17 +3,17 @@ import { Card } from "@/components/ui/Card";
 import { GenderGlyph } from "@/components/ui/GenderGlyph";
 import { ClassInfoItem } from "@/types";
 
-type IconComponent = React.ComponentType<{ size?: number; className?: string }>;
-
-const ICONS: Record<ClassInfoItem["icon"], IconComponent> = {
+// Mars/Venus are handled separately via GenderGlyph (see that file for why),
+// so this map only needs to cover the plain lucide-backed icons.
+const LUCIDE_ICONS = {
   school: School,
   "calendar-days": CalendarDays,
   "user-round": UserRound,
   users: Users,
-  mars: (props) => <GenderGlyph gender="mars" {...props} />,
-  venus: (props) => <GenderGlyph gender="venus" {...props} />,
   "map-pin": MapPin,
-};
+} as const;
+
+type LucideIconKey = keyof typeof LUCIDE_ICONS;
 
 interface ClassInfoCardProps {
   item: ClassInfoItem;
@@ -21,14 +21,19 @@ interface ClassInfoCardProps {
 }
 
 export function ClassInfoCard({ item, delay = 0 }: ClassInfoCardProps) {
-  const Icon = ICONS[item.icon];
+  const isGenderIcon = item.icon === "mars" || item.icon === "venus";
+  const LucideIcon = isGenderIcon ? null : LUCIDE_ICONS[item.icon as LucideIconKey];
 
   return (
     <Card interactive delay={delay} className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
         <span className="index-label">{item.index}</span>
         <div className="flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted transition-all duration-300 ease-ledger group-hover:scale-105 group-hover:border-marigold group-hover:text-marigold dark:border-line-dark dark:text-muted-dark">
-          <Icon size={16} />
+          {isGenderIcon ? (
+            <GenderGlyph gender={item.icon as "mars" | "venus"} size={16} />
+          ) : (
+            LucideIcon && <LucideIcon size={16} />
+          )}
         </div>
       </div>
       <div>
