@@ -1,0 +1,126 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-line dark:border-line-dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-paper text-ink dark:bg-paper-dark dark:text-ink-dark;
+    @apply font-body antialiased;
+    text-rendering: optimizeLegibility;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease,
+      border-color 0.3s ease;
+  }
+
+  /* Typographic rhythm — headings get tighter leading + balanced wraps,
+     body copy keeps a comfortable measure so paragraphs stay readable. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+    letter-spacing: -0.01em;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    @apply bg-marigold/30 text-ink dark:text-ink-dark;
+  }
+
+  /* Visible, accessible focus ring everywhere — 3px on inputs/links so it
+     never gets lost against the paper background, always keyboard-only. */
+  :focus-visible {
+    @apply outline outline-2 outline-offset-2 outline-marigold;
+    transition: outline-offset 0.15s ease;
+  }
+
+  /* Thin, quiet scrollbar that matches the ledger aesthetic */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-paper dark:bg-paper-dark;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-line dark:bg-line-dark rounded-full;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-marigold/50;
+    background-clip: padding-box;
+  }
+}
+
+@layer components {
+  /* Roll-call index label — "01", "02"... used in nav/footer as a signature motif */
+  .index-label {
+    @apply font-mono text-xs tracking-widest text-marigold dark:text-marigold-light;
+  }
+
+  /* Hairline rule, the recurring "ruled page" divider */
+  .rule {
+    @apply border-t border-line dark:border-line-dark;
+  }
+
+  /* Consistent section rhythm — use instead of ad-hoc py-* on <section> tags */
+  .section-py {
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+
+  /* Shimmer skeleton, for image/content placeholders while data "loads" */
+  .skeleton {
+    @apply relative overflow-hidden bg-line/40 dark:bg-line-dark/40;
+  }
+  .skeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(232, 163, 61, 0.16),
+      transparent
+    );
+    animation: shimmer 1.8s ease-in-out infinite;
+  }
+
+  /* Utility for screen-reader-only content that becomes visible on focus,
+     used by the skip-to-content link. */
+  .skip-link {
+    @apply fixed left-4 top-4 z-[100] -translate-y-24 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-paper opacity-0 transition-all duration-200 focus:translate-y-0 focus:opacity-100 dark:bg-ink-dark dark:text-paper-dark;
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
