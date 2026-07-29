@@ -38,7 +38,7 @@ export function Badge({
         "inline-flex items-center gap-1.5 rounded-full border font-mono uppercase tracking-widest",
         size === "md" ? "px-3 py-1 text-[11px]" : "px-2 py-0.5 text-[10px]",
         "transition-colors",
-        colorClassName ?? (tone !== "custom" ? TONE_STYLES[tone] : undefined),
+        colorClassName ?? TONE_STYLES[tone],
         className,
       )}
     >
